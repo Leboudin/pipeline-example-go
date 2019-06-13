@@ -2,6 +2,7 @@ kind: Service
 apiVersion: v1
 metadata:
   name: service-discovery
+
 spec:
   selector:
     app: service-discovery
@@ -17,6 +18,7 @@ metadata:
   name: service-discovery
   labels:
     app: service-discovery
+
 spec:
   replicas: 1
   selector:
@@ -26,11 +28,22 @@ spec:
     metadata:
       labels:
         app: service-discovery
+
     spec:
       imagePullSecrets:
-      - name: pipeline-docker-registry
+        - name: pipeline-docker-registry
       containers:
-      - name: service-discovery
-        image: ${CICD_IMAGE}:${CICD_EXECUTION_SEQUENCE}
-        ports:
-        - containerPort: 80
+        - name: service-discovery
+          image: ${CICD_IMAGE}:${CICD_EXECUTION_SEQUENCE}
+          ports:
+            - containerPort: 80
+          volumeMounts:
+            - name: config
+              mountPath: "./"
+      volumes:
+        - name: conig
+          configMap:
+            name: service-discovery-config
+            items:
+              - key: config.yaml
+                path: config.yaml

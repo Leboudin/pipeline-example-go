@@ -6,12 +6,14 @@ stages:
       shellScript: |-
         go build -o bin/service
         go test -cover
+
 - name: Publish
   steps:
   - publishImageConfig:
       dockerfilePath: ./Dockerfile
       buildContext: .
       tag: service-discovery:${CICD_EXECUTION_SEQUENCE}
+
 - name: Deploy
   steps:
   - applyYamlConfig:

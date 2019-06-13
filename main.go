@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+	"flag"
 	"fmt"
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/mysql"
@@ -16,11 +17,15 @@ type Database struct {
 	Name string `gorm:"column:Database"`
 }
 
+var addr = flag.String("addr", ":80", "address")
+
 func main() {
+	flag.Parse()
+
 	http.HandleFunc("/", helloHandler)
 	http.HandleFunc("/services/", serviceDiscoveryHandler)
-	log.Println("start service")
-	log.Fatal(http.ListenAndServe(":19008", nil))
+	log.Println("start service on " + *addr)
+	log.Fatal(http.ListenAndServe(*addr, nil))
 }
 
 func helloHandler(w http.ResponseWriter, r *http.Request) {
