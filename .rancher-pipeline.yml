@@ -2,7 +2,7 @@ stages:
 - name: Build
   steps:
   - runScriptConfig:
-      image: golang:1.11
+      image: golang:1.12
       shellScript: |-
         go build -o bin/service
         go test -cover
