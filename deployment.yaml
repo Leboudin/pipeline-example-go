@@ -1,10 +1,10 @@
 kind: Service
 apiVersion: v1
 metadata:
-  name: helloserver-service
+  name: service-discovery
 spec:
   selector:
-    app: helloserver
+    app: service-discovery
   type: NodePort
   ports:
     - protocol: TCP
@@ -14,23 +14,23 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: example-helloserver
+  name: service-discovery
   labels:
-    app: helloserver
+    app: service-discovery
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: helloserver
+      app: service-discovery
   template:
     metadata:
       labels:
-        app: helloserver
+        app: service-discovery
     spec:
       imagePullSecrets:
       - name: pipeline-docker-registry
       containers:
-      - name: helloserver
+      - name: service-discovery
         image: ${CICD_IMAGE}:${CICD_EXECUTION_SEQUENCE}
         ports:
         - containerPort: 80
