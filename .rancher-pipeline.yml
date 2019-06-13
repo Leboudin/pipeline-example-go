@@ -6,14 +6,12 @@ stages:
       shellScript: |-
         go build -o bin/service
         go test -cover
-
 - name: Publish
   steps:
   - publishImageConfig:
       dockerfilePath: ./Dockerfile
       buildContext: .
       tag: service-discovery:${CICD_EXECUTION_SEQUENCE}
-
 - name: Deploy
   steps:
   - applyYamlConfig:
@@ -21,7 +19,7 @@ stages:
 notification:
   recipients:
   - recipient: '#general'
-    notifier: c-zvjb9:n-29mjb
+    notifier: c-nhgtx:n-cxvhn
   condition:
   - Success
   - Changed
