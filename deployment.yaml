@@ -41,7 +41,7 @@ spec:
             - name: config
               mountPath: "./"
       volumes:
-        - name: conig
+        - name: config
           configMap:
             name: service-discovery-config
             items:
