@@ -9,7 +9,9 @@ stages:
         cd /go/src/github.com/rancher/pipeline-example-go
         go build -o bin/hello-server
         go test -cover
+        
         echo '${CICD_GIT_URL}/commit/${CICD_GIT_COMMIT}'
+        echo '${CICD_GIT_TAG}'
         echo '${CICD_GIT_COMMIT_MESSAGE}'
 - name: Publish
   steps:
