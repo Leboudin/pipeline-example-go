@@ -9,16 +9,19 @@ stages:
         cd /go/src/github.com/rancher/pipeline-example-go
         go build -o bin/hello-server
         go test -cover
+        
 - name: Publish
   steps:
   - publishImageConfig:
       dockerfilePath: ./Dockerfile
       buildContext: .
       tag: example-helloserver:${CICD_EXECUTION_SEQUENCE}
+      
 - name: Deploy
   steps:
   - applyYamlConfig:
       path: ./deployment.yaml
+      
 notification:
   recipients:
   - recipient: http://103.210.23.154:31314/rancher-webhook
