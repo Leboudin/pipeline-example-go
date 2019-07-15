@@ -9,7 +9,8 @@ stages:
         cd /go/src/github.com/rancher/pipeline-example-go
         go build -o bin/hello-server
         go test -cover
-        echo ${CICD_GIT_REF}
+        echo ${CICD_GIT_URL}
+        echo ${CICD_GIT_COMMIT}
 - name: Publish
   steps:
   - publishImageConfig:
